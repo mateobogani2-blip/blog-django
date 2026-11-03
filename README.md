@@ -54,7 +54,7 @@ El proyecto reúne lo que se trabajó en cada etapa del curso:
 1. **Clonar el repositorio**
 
    ```bash
-   git clone https://github.com/mateobogani2/blog-django.git
+   git clone https://github.com/mateobogani2-blip/blog-django.git
    cd blog-django
    ```
 
