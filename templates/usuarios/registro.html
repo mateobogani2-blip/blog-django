@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block titulo %}Registrarse · Blog Django{% endblock %}
+
+{% block contenido %}
+<div class="mx-auto contenido-chico">
+  <h1 class="h3 mb-4">Crear cuenta</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include "parcial_campos.html" with form=form %}
+    <button type="submit" class="btn btn-primary w-100">Registrarme</button>
+  </form>
+  <p class="mt-3 text-center">¿Ya tenés cuenta? <a href="{% url 'usuarios:login' %}">Iniciá sesión</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}{{ usuario_perfil.username }} · Blog Django{% endblock %}
+
+{% block contenido %}
+<section class="d-flex flex-column flex-sm-row align-items-sm-center gap-4 mb-4">
+  {% if perfil.avatar %}
+    <img src="{{ perfil.avatar.url }}" class="avatar" alt="Foto de {{ usuario_perfil.username }}">
+  {% else %}
+    <img src="{% static 'img/avatar.svg' %}" class="avatar" alt="Sin foto de perfil">
+  {% endif %}
+  <div>
+    <h1 class="h3 mb-1">{{ usuario_perfil.get_full_name|default:usuario_perfil.username }}</h1>
+    <p class="text-muted mb-1">@{{ usuario_perfil.username }}{% if perfil.especialidad %} · {{ perfil.especialidad }}{% endif %}</p>
+    {% if perfil.bio %}<p class="mb-1">{{ perfil.bio }}</p>{% endif %}
+    {% if perfil.lista_redes %}
+      <p class="small mb-1">{% for red in perfil.lista_redes %}<span class="me-2">{{ red }}</span>{% endfor %}</p>
+    {% endif %}
+    {% if user == usuario_perfil %}
+      <a href="{% url 'usuarios:editar_perfil' %}" class="btn btn-sm btn-outline-primary mt-2">Editar perfil</a>
+    {% endif %}
+  </div>
+</section>
+
+<h2 class="h5 border-bottom pb-2">{% if user == usuario_perfil %}Mis posts{% else %}Posts publicados{% endif %}</h2>
+{% if posts %}
+  <ul class="list-group list-group-flush">
+    {% for post in posts %}
+      <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+        <a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a>
+        <span>
+          {% if post.estado != "publicado" %}<span class="badge text-bg-warning">{{ post.get_estado_display }}</span>{% endif %}
+          <small class="text-muted ms-2">{{ post.creado|date:"d/m/Y" }}</small>
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="text-muted">Todavía no hay posts.</p>
+{% endif %}
+{% endblock %}

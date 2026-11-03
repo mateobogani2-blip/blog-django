@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar perfil · Blog Django{% endblock %}
+
+{% block contenido %}
+<div class="mx-auto contenido-angosto">
+  <h1 class="h3 mb-4">Editar perfil</h1>
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% include "parcial_campos.html" with form=usuario_form %}
+    {% include "parcial_campos.html" with form=perfil_form %}
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-success">Guardar cambios</button>
+      <a href="{% url 'usuarios:mi_perfil' %}" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

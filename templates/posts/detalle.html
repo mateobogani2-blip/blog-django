@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ post.titulo }} · Blog Django{% endblock %}
+
+{% block contenido %}
+<article class="mx-auto contenido-angosto">
+  {% if post.estado != "publicado" %}
+    <div class="alert alert-warning py-2">Este post está en estado <strong>{{ post.get_estado_display|lower }}</strong>: solo vos lo podés ver.</div>
+  {% endif %}
+
+  <h1 class="mb-2">{{ post.titulo }}</h1>
+  <p class="text-muted">
+    Por <a href="{% url 'usuarios:perfil' post.autor.username %}">{{ post.autor.username }}</a>
+    · {{ post.creado|date:"d/m/Y H:i" }}
+  </p>
+
+  {% if post.imagen %}
+    <img src="{{ post.imagen.url }}" class="img-fluid rounded mb-4 w-100 detalle-img" alt="{{ post.titulo }}">
+  {% endif %}
+
+  <div class="fs-5 lh-lg mb-4">{{ post.contenido|linebreaks }}</div>
+
+  {% if post.lista_tags %}
+    <p>
+      {% for tag in post.lista_tags %}
+        <a href="{% url 'posts:lista' %}?tag={{ tag|urlencode }}" class="badge text-bg-secondary text-decoration-none">#{{ tag }}</a>
+      {% endfor %}
+    </p>
+  {% endif %}
+
+  <div class="d-flex gap-2 border-top pt-3">
+    <a href="{% url 'posts:lista' %}" class="btn btn-outline-secondary">← Volver</a>
+    {% if user == post.autor %}
+      <a href="{% url 'posts:editar' post.pk %}" class="btn btn-primary">Editar</a>
+      <a href="{% url 'posts:eliminar' post.pk %}" class="btn btn-outline-danger">Eliminar</a>
+    {% endif %}
+  </div>
+</article>
+{% endblock %}

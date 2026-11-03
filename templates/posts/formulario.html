@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ titulo_pagina }} · Blog Django{% endblock %}
+
+{% block contenido %}
+<div class="mx-auto contenido-angosto">
+  <h1 class="h3 mb-4">{{ titulo_pagina }}</h1>
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% include "parcial_campos.html" with form=form %}
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-success">Guardar</button>
+      <a href="{% if object %}{{ object.get_absolute_url }}{% else %}{% url 'posts:lista' %}{% endif %}" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load static %}<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Blog Django{% endblock %}</title>
+  <link href="{% static 'vendor/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="{% url 'posts:lista' %}">Blog Django</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+              aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <form class="d-flex my-2 my-md-0 me-auto ms-md-3" method="get" action="{% url 'posts:lista' %}" role="search">
+          <input class="form-control form-control-sm me-2" type="search" name="q"
+                 placeholder="Buscar posts..." value="{{ busqueda|default:'' }}" aria-label="Buscar">
+          <button class="btn btn-sm btn-outline-light" type="submit">Buscar</button>
+        </form>
+        <ul class="navbar-nav align-items-md-center gap-md-2">
+          {% if user.is_authenticated %}
+            <li class="nav-item"><a class="btn btn-sm btn-success" href="{% url 'posts:crear' %}">+ Nuevo post</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:mi_perfil' %}">Hola, {{ user.username }}</a></li>
+            <li class="nav-item">
+              <form method="post" action="{% url 'usuarios:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-light">Cerrar sesión</button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:login' %}">Iniciar sesión</a></li>
+            <li class="nav-item"><a class="btn btn-sm btn-outline-light" href="{% url 'usuarios:registro' %}">Registrarse</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer class="border-top py-3 text-center text-muted small">
+    Blog Django · Trabajo final del curso de Python · Hecho por Mateo Bogani
+  </footer>
+
+  <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
