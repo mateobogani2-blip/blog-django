@@ -1,0 +1,60 @@
+[
+    {
+        "id": 1,
+        "titulo": "Primeros pasos con Python",
+        "contenido": "En este post veremos cómo empezar a programar con Python.",
+        "autor": {
+            "nombre": "Mateo Bogani",
+            "bio": "Estudiante de Data Analyst que está aprendiendo Python y Django.",
+            "especialidad": "Python y análisis de datos",
+            "redes_sociales": [
+                "@mateo_bogani",
+                "@mateo_python"
+            ]
+        },
+        "tags": [
+            "Python",
+            "Principiantes"
+        ],
+        "estado": "publicado"
+    },
+    {
+        "id": 2,
+        "titulo": "Qué es Django",
+        "contenido": "Django es un framework web creado con Python.",
+        "autor": {
+            "nombre": "Mateo Bogani",
+            "bio": "Estudiante de Data Analyst que está aprendiendo Python y Django.",
+            "especialidad": "Python y análisis de datos",
+            "redes_sociales": [
+                "@mateo_bogani",
+                "@mateo_python"
+            ]
+        },
+        "tags": [
+            "Python",
+            "Django",
+            "Web"
+        ],
+        "estado": "borrador"
+    },
+    {
+        "id": 3,
+        "titulo": "Organizando datos con listas",
+        "contenido": "Las listas permiten guardar varios elementos en una sola variable.",
+        "autor": {
+            "nombre": "Mateo Bogani",
+            "bio": "Estudiante de Data Analyst que está aprendiendo Python y Django.",
+            "especialidad": "Python y análisis de datos",
+            "redes_sociales": [
+                "@mateo_bogani",
+                "@mateo_python"
+            ]
+        },
+        "tags": [
+            "Python",
+            "Listas"
+        ],
+        "estado": "archivado"
+    }
+]
