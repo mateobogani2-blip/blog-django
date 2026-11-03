@@ -11,8 +11,6 @@ SQLite, con una interfaz web, usuarios y carga de imágenes.
 - Django 6.1
 - SQLite (base de datos que trae Django)
 - Pillow (para las imágenes)
-- python-decouple (para las variables de entorno)
-- Bootstrap 5.3 (incluido en `static/vendor`, no necesita internet)
 
 ## Funcionalidades
 
